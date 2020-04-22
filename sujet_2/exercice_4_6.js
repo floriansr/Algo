@@ -2,16 +2,15 @@ let fs = require('fs');
 
 fs.readFile(process.argv[2], 'utf8', (error, data) => {
 	newData = data.split(' ').map(Number);
-	selectionSort(newData, newData.length);
+	buildingsSunshine(newData, newData.length);
 });
 
 
 
-const selectionSort = (x, n) => {
+const buildingsSunshine = (x, n) => {
 
-		let count = 0
+		let count = 1
 		let min = x[n-1]
-		count++
 			
 		for (let j = n-2; j >= 0; j--){
 
