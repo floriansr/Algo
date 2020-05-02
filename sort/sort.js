@@ -1,51 +1,22 @@
 let fs = require('fs');
 
-fs.readFile(process.argv[2], 'utf8', (error, data) => {
-	newData = data.split(' ').map(Number);
+try {
+  fs.readFile(process.argv[2], 'utf8', (error, data) => {
 
-	merge(newData);
-	insertionSort(newData, newData.length);
-	selectionSort(newData, newData.length);
-});
+  	newData = data.split(' ').map(Number);
 
-
-const insertionSort = (x, n) => {
-    let counter = 0
-    for (let i = 1; i <= n-1; i++) {
-            
-            let tmp = x[i];
-            let j = i;
-
-            while (j > 0 && x[j - 1] > tmp) {
-            counter++
-                x[j] = x[j - 1];
-                j = j - 1;
-            }
-        x[j] = tmp
-    }
-    console.log(`Insertion sort : ${counter} times`);
-    console.log("-----------------------------");
+  	merge(newData.slice());
+  	insertionSort(newData.slice(), newData.length);
+  	selectionSort(newData.slice(), newData.length);
+  });
 }
-
-const selectionSort = (x, n) => {
-	let counter = 0
-	for (let i = 0; i <= (n - 2); i++){
-		
-		let min = i
-			
-		for (let j = i + 1; j <= n-1; j++){
-			counter ++
-			if (x[j] < x[min]){
-				min = j
-			}
-		}
-
-		if (min != i){
-			[x[i], x[min]] = [x[min], x[i]]
-		}
-	}
-    console.log(`Selection sort : ${counter} times`);
-    console.log("-----------------------------");
+catch (error) {
+  if (!process.argv[2]) {
+  console.log("Echec loading array");
+  return;
+  }
+  console.error(error);
+  return;
 }
 
 const merge = (x) => {
@@ -84,4 +55,44 @@ const merge = (x) => {
   x = mergeSortTopDown(x);
   console.log(`Merge sort : ${counter} times`);
   console.log("-----------------------------");
+}
+
+const insertionSort = (x, n) => {
+    let counter = 0;
+    for (let i = 1; i <= n-1; i++) {
+            
+            let tmp = x[i];
+            let j = i;
+
+            while (j > 0 && x[j - 1] > tmp) {
+            counter++;
+                x[j] = x[j - 1];
+                j = j - 1;
+            }
+        x[j] = tmp
+    }
+    console.log(`Insertion sort : ${counter} times`);
+    console.log("-----------------------------");
+}
+
+
+const selectionSort = (x, n) => {
+  let counter = 0
+  for (let i = 0; i <= (n - 2); i++){
+    
+    let min = i
+      
+    for (let j = i + 1; j <= n-1; j++){
+      counter ++
+      if (x[j] < x[min]){
+        min = j
+      }
+    }
+
+    if (min != i){
+      [x[i], x[min]] = [x[min], x[i]]
+    }
+  }
+    console.log(`Selection sort : ${counter} times`);
+    console.log("-----------------------------");
 }

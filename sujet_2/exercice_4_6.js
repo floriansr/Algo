@@ -1,9 +1,19 @@
 let fs = require('fs');
 
-fs.readFile(process.argv[2], 'utf8', (error, data) => {
-	newData = data.split(' ').map(Number);
-	buildingsSunshine(newData, newData.length);
-});
+try {
+	fs.readFile(process.argv[2], 'utf8', (error, data) => {
+		newData = data.split(' ').map(Number);
+		buildingsSunshine(newData.slice(), newData.length);
+	});
+}
+catch (error) {
+  if (!process.argv[2]) {
+  console.log("Echec loading array");
+  return;
+  }
+  console.error(error);
+  return;
+}
 
 
 
